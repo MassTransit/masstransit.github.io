@@ -165,6 +165,26 @@ a.button span {
   margin-right: 0;
 }
 
+/* TeamCity & NuGet button */
+a.button#view-packages, 
+a.button#view-builds {
+  margin-left: 10px;
+  margin-right: 0px;
+}
+
+a.button#view-packages {
+  width: 150px;
+}
+
+a.button#view-builds {
+  width: 160px;
+}
+
+a.button#view-packages span,
+a.button#view-builds span {
+  padding-left: 12px;
+}
+
 code, pre {
   font-family: Monaco, "Bitstream Vera Sans Mono", "Lucida Console", Terminal;
   color: #222;
