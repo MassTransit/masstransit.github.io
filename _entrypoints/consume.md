@@ -1,7 +1,7 @@
 ---
 layout: default
 title: consume a message!
-subtitle: Composable middleware for the Task Parallel Library
+subtitle: How to simply consume a message.
 ---
 
 How to set up a basic consumer.

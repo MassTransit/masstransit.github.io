@@ -1,7 +1,7 @@
 ---
 layout: default
 title: HTTP.
-subtitle: Composable middleware for the Task Parallel Library
+subtitle: Support RPC
 ---
 
 Let's get rolling on HTTP.

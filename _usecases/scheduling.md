@@ -1,7 +1,7 @@
 ---
 layout: default
 title: schedule a message for later?
-subtitle: Composable middleware for the Task Parallel Library
+subtitle: How to schedule a message for future delivery.
 ---
 
 How to schedule a message for future delivery.

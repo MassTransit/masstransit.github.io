@@ -1,7 +1,7 @@
 ---
 layout: default
 title: send a message!
-subtitle: Composable middleware for the Task Parallel Library
+subtitle: Simply send a message
 ---
 
 What I want to send a message.

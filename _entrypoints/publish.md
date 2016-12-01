@@ -1,7 +1,7 @@
 ---
 layout: default
 title: publish a message!
-subtitle: Composable middleware for the Task Parallel Library
+subtitle: Simply publish a message
 ---
 
 Lets publish a message.

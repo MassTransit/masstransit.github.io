@@ -1,7 +1,7 @@
 ---
 layout: default
 title: help me choose.
-subtitle: Composable middleware for the Task Parallel Library
+subtitle: Not sure which to use? Lets talk it out.
 ---
 
 Not sure which to use? Lets talk it out.

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Azure Service Bus (ASB).
-subtitle: Composable middleware for the Task Parallel Library
+subtitle: Running in Azure?
 ---
 
 Let's get rolling on ASB.

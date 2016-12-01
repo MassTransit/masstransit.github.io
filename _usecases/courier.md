@@ -1,10 +1,8 @@
 ---
 layout: default
 title: orchestrate multiple services? (courier)
-subtitle: Composable middleware for the Task Parallel Library
+subtitle: How to connect many services into one flow.
 ---
-
-How to connect many services into one flow.
 
 ## Using Courier
 

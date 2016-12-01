@@ -1,7 +1,7 @@
 ---
 layout: default
 title: RabbitMQ (RMQ).
-subtitle: Composable middleware for the Task Parallel Library
+subtitle: The Default
 ---
 
 Let's get rolling on RSB.

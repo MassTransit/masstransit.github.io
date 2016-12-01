@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <!-- Canonical link to help search engines -->
+  <link rel="canonical" href="/entrypoints/diagnostics/"/>
+
+  <!-- Basic meta elements -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"/>
+
+  <!--   Dublin Core metadata for Zotero -->
+  <meta name="DC.title" content="Diagnostics" />
+  <meta name="DC.creator" content="" />
+  <meta name="DC.contributor" content="" />
+  <meta name="DC.date" content="" />
+  <meta name="DC.rights" content="" />
+  <meta name="DC.source" content="MassTransit" />
+
+    <!-- Open Graph metadata -->
+
+    
+    <meta property="og:title" content="Diagnostics"/>
+    <meta property="og:description" content="Stuff">
+    <meta property="fb:admins" content="elotroalex"/>
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://masstransit.io/entrypoints/diagnostics/"/>
+    <meta property="fb:app_id" content="589495744558280"/>
+    <meta property="og:image" content="http://masstransit.io/public/open-graph-logo.png"/>
+    <meta property="og:image:width" content="200" />
+    <meta property="og:image:height" content="200" />
+
+    
+
+  <title>
+    
+      Diagnostics
+    
+  </title>
+
+  <!-- CSS links -->
+  <link rel="stylesheet" href="/public/css/syntax.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.5.5/css/tachyons.min.css"/>
+  <link rel="stylesheet" href="/public/css/mt.css"/>
+
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/public/apple-touch-icon-precomposed.png"/>
+  <link rel="shortcut icon" href="/public/favicon.png"/>
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml"/>
+</head>
+
+
+  <body class="sans-serif bg-white">
+
+    <div class="mw5 mw9-ns center pa3 ph5-ns">
+      <h1 class="f2 fw7 ttu tracked lh-title mt0 mb3 avenir">
+        <a href="/" title="Home">MassTransit</a>
+        <br>
+        <small>.Net Messaging</small>
+      </h1>
+    </div>
+    <div class="mw5 mw9-ns center pa3 ph5-ns">
+      <p>A bus instance is composed of many classes, all of which are wired together to form a connection pipeline of
+message processing goodness. This brings a bit of complexity, as there are many moving parts behind the curtain.
+To help troubleshoot and understand how a bus is configured, it is possible to probe the bus and return an object
+graph of the bus.</p>
+
+<p>To probe bus configuration, use the <code class="highlighter-rouge">GetProbeResult</code> method as shown below.</p>
+
+<figure class="highlight"><pre><code class="language-c#" data-lang="c#"><span class="kt">var</span> <span class="n">busControl</span> <span class="p">=</span> <span class="n">Bus</span><span class="p">.</span><span class="n">Factory</span><span class="p">.</span><span class="nf">CreateUsingRabbitMq</span><span class="p">(</span><span class="n">cfg</span> <span class="p">=&gt;</span>
+<span class="p">{</span>
+    <span class="kt">var</span> <span class="n">host</span> <span class="p">=</span> <span class="n">cfg</span><span class="p">.</span><span class="nf">Host</span><span class="p">(</span><span class="k">new</span> <span class="nf">Uri</span><span class="p">(</span><span class="s">"rabbitmq://localhost/test"</span><span class="p">),</span> <span class="n">h</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="n">h</span><span class="p">.</span><span class="nf">Username</span><span class="p">(</span><span class="s">"guest"</span><span class="p">);</span>
+        <span class="n">h</span><span class="p">.</span><span class="nf">Password</span><span class="p">(</span><span class="s">"guest"</span><span class="p">);</span>
+    <span class="p">});</span>
+
+    <span class="n">sbc</span><span class="p">.</span><span class="nf">ReceiveEndpoint</span><span class="p">(</span><span class="s">"input_queue"</span><span class="p">,</span> <span class="n">ec</span> <span class="p">=&gt;</span>
+    <span class="p">{</span>
+        <span class="n">ec</span><span class="p">.</span><span class="n">Consumer</span><span class="p">&lt;</span><span class="n">UpdateCustomerAddressConsumer</span><span class="p">&gt;();</span>
+    <span class="p">})</span>
+<span class="p">});</span>
+
+<span class="n">ProbeResult</span> <span class="n">result</span> <span class="p">=</span> <span class="n">busControl</span><span class="p">.</span><span class="nf">GetProbeResult</span><span class="p">();</span>
+
+<span class="n">Console</span><span class="p">.</span><span class="nf">WriteLine</span><span class="p">(</span><span class="n">result</span><span class="p">.</span><span class="nf">ToJsonString</span><span class="p">());</span></code></pre></figure>
+
+<p>The resulting output for the configuration above would be similar to the following.</p>
+
+<figure class="highlight"><pre><code class="language-json" data-lang="json"><span class="w">  </span><span class="p">{</span><span class="w">
+    </span><span class="nt">"resultId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7f280000-2961-000c-1dcc-08d2c68a08ac"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"probeId"</span><span class="p">:</span><span class="w"> </span><span class="s2">"7f280000-2961-000c-fd27-08d2c68a08ab"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"startTimestamp"</span><span class="p">:</span><span class="w"> </span><span class="s2">"2015-09-26T15:49:16.594521Z"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"duration"</span><span class="p">:</span><span class="w"> </span><span class="s2">"00:00:00.4850036"</span><span class="p">,</span><span class="w">
+    </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"machineName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"LOCALHOST"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"processName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TestService"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"processId"</span><span class="p">:</span><span class="w"> </span><span class="mi">5808</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"assembly"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MassTransit"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"assemblyVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.0.13.0"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"frameworkVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"4.0.30319.42000"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"massTransitVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"3.0.13.0"</span><span class="p">,</span><span class="w">
+      </span><span class="nt">"operatingSystemVersion"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Microsoft Windows NT 6.3.9600.0"</span><span class="w">
+    </span><span class="p">},</span><span class="w">
+    </span><span class="nt">"results"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+      </span><span class="nt">"bus"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+        </span><span class="nt">"address"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rabbitmq://[::1]:5672/test/bus-testservice-xhwyyybjcryy3ofjbdjcpnoenx?durable=false&amp;autodelete=true&amp;prefetch=8"</span><span class="p">,</span><span class="w">
+        </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+          </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RabbitMQ"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"host"</span><span class="p">:</span><span class="w"> </span><span class="s2">"[::1]"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"port"</span><span class="p">:</span><span class="w"> </span><span class="mi">5672</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"virtualHost"</span><span class="p">:</span><span class="w"> </span><span class="s2">"test"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"username"</span><span class="p">:</span><span class="w"> </span><span class="s2">"guest"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"*****"</span><span class="p">,</span><span class="w">
+          </span><span class="nt">"connected"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="w">
+        </span><span class="p">},</span><span class="w">
+        </span><span class="nt">"receiveEndpoint"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"transport"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RabbitMQ"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"queueName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"input_queue"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"exchangeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"input_queue"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"prefetchCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">16</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"durable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"queueArguments"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+              </span><span class="nt">"exchangeArguments"</span><span class="p">:</span><span class="w"> </span><span class="p">{},</span><span class="w">
+              </span><span class="nt">"purgeOnStartup"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"exchangeType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fanout"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+                </span><span class="p">{</span><span class="w">
+                  </span><span class="nt">"exchange"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nt">"exchangeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"TestService.Contracts:UpdateCustomerAddress"</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"exchangeType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fanout"</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"durable"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+                    </span><span class="nt">"arguments"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+                  </span><span class="p">},</span><span class="w">
+                  </span><span class="nt">"routingKey"</span><span class="p">:</span><span class="w"> </span><span class="s2">""</span><span class="p">,</span><span class="w">
+                  </span><span class="nt">"arguments"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">]</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nt">"filters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deadLetter"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"filters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="nt">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"move"</span><span class="p">,</span><span class="w">
+                  </span><span class="nt">"destinationAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rabbitmq://[::1]:5672/test/input_queue_skipped?bind=true&amp;queue=input_queue_skipped"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rescue"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"filters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="nt">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"moveFault"</span><span class="p">,</span><span class="w">
+                  </span><span class="nt">"destinationAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rabbitmq://[::1]:5672/test/input_queue_error?bind=true&amp;queue=input_queue_error"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deserialize"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"deserializers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="nt">"json"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nt">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/vnd.masstransit+json"</span><span class="w">
+                  </span><span class="p">},</span><span class="w">
+                  </span><span class="nt">"bson"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nt">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/vnd.masstransit+bson"</span><span class="w">
+                  </span><span class="p">},</span><span class="w">
+                  </span><span class="nt">"xml"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nt">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/vnd.masstransit+xml"</span><span class="w">
+                  </span><span class="p">}</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nt">"pipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="nt">"TestService.Contracts.UpdateCustomerAddress"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nt">"filters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                      </span><span class="nt">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"instance"</span><span class="p">,</span><span class="w">
+                      </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"MassTransit.Testing.MultiTestConsumer+Of&lt;TestService.Contracts.UpdateCustomerAddress&gt;"</span><span class="w">
+                    </span><span class="p">}</span><span class="w">
+                  </span><span class="p">}</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+          </span><span class="p">},</span><span class="w">
+          </span><span class="p">{</span><span class="w">
+            </span><span class="nt">"transport"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+              </span><span class="nt">"type"</span><span class="p">:</span><span class="w"> </span><span class="s2">"RabbitMQ"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"queueName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bus-testservice-xhwyyybjcryy3ofjbdjcpnoenx"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"exchangeName"</span><span class="p">:</span><span class="w"> </span><span class="s2">"bus-testservice-xhwyyybjcryy3ofjbdjcpnoenx"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"prefetchCount"</span><span class="p">:</span><span class="w"> </span><span class="mi">8</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"autoDelete"</span><span class="p">:</span><span class="w"> </span><span class="kc">true</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"queueArguments"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"x-expires"</span><span class="p">:</span><span class="w"> </span><span class="mi">60000</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="nt">"exchangeArguments"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"x-expires"</span><span class="p">:</span><span class="w"> </span><span class="mi">60000</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="nt">"exchangeType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"fanout"</span><span class="p">,</span><span class="w">
+              </span><span class="nt">"bindings"</span><span class="p">:</span><span class="w"> </span><span class="p">[]</span><span class="w">
+            </span><span class="p">},</span><span class="w">
+            </span><span class="nt">"filters"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deadLetter"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"filters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="nt">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"move"</span><span class="p">,</span><span class="w">
+                  </span><span class="nt">"destinationAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rabbitmq://[::1]:5672/test/bus-testservice-xhwyyybjcryy3ofjbdjcpnoenx_skipped?bind=true&amp;queue=bus-testservice-xhwyyybjcryy3ofjbdjcpnoenx_skipped"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rescue"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"filters"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="nt">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"moveFault"</span><span class="p">,</span><span class="w">
+                  </span><span class="nt">"destinationAddress"</span><span class="p">:</span><span class="w"> </span><span class="s2">"rabbitmq://[::1]:5672/test/bus-testservice-xhwyyybjcryy3ofjbdjcpnoenx_error?bind=true&amp;queue=bus-testservice-xhwyyybjcryy3ofjbdjcpnoenx_error"</span><span class="w">
+                </span><span class="p">}</span><span class="w">
+              </span><span class="p">},</span><span class="w">
+              </span><span class="p">{</span><span class="w">
+                </span><span class="nt">"filterType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"deserialize"</span><span class="p">,</span><span class="w">
+                </span><span class="nt">"deserializers"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                  </span><span class="nt">"json"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nt">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/vnd.masstransit+json"</span><span class="w">
+                  </span><span class="p">},</span><span class="w">
+                  </span><span class="nt">"bson"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nt">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/vnd.masstransit+bson"</span><span class="w">
+                  </span><span class="p">},</span><span class="w">
+                  </span><span class="nt">"xml"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span><span class="w">
+                    </span><span class="nt">"contentType"</span><span class="p">:</span><span class="w"> </span><span class="s2">"application/vnd.masstransit+xml"</span><span class="w">
+                  </span><span class="p">}</span><span class="w">
+                </span><span class="p">},</span><span class="w">
+                </span><span class="nt">"pipe"</span><span class="p">:</span><span class="w"> </span><span class="p">{}</span><span class="w">
+              </span><span class="p">}</span><span class="w">
+            </span><span class="p">]</span><span class="w">
+          </span><span class="p">}</span><span class="w">
+        </span><span class="p">]</span><span class="w">
+      </span><span class="p">}</span><span class="w">
+    </span><span class="p">}</span><span class="w">
+  </span><span class="p">}</span></code></pre></figure>
+
+
+    </div>
+
+    <script>
+
+    // Highlight search Query
+    var url = window.location.href;
+      if (url.lastIndexOf("?q=") > 0) {
+        // get the index of the parameter, add three (to account for length)
+        var stringloc = url.lastIndexOf("?q=") + 3;
+        // get the substring (query) and decode
+        var searchquery = decodeURIComponent(url.substr(stringloc));
+        // regex matches at beginning of line, end of line or word boundary, useful for poetry
+        var regex = new RegExp("(?:^|\\b)(" + searchquery + ")(?:$|\\b)", "gim");
+        // get, add mark and then set content
+        var content = document.getElementById("main").innerHTML;
+        document.getElementById("main").innerHTML = content.replace(regex, "<mark>$1</mark>");
+      }
+
+    // Toggle sidebar
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+    <!-- Facebook SDK for JavaScript -->
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '589495744558280',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+  </body>
+</html>

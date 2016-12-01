@@ -2,6 +2,10 @@
 layout: page
 title: Installing MassTransit
 ---
+
+* ToC
+{:toc}
+
 This section of the online docs will explain how to get MassTransit into your project. It will also show you where to get help, how to report bugs, etc. Hopefully, you will find it useful as you explore the MassTransit framework.
 
 MassTransit is written in C# and requires a compatible .NET framework. MassTransit is built and tested with .NET 4.5, and the shipped assemblies target this version. Visual Studio 2015 is used, and the new C# 6 syntax is used.

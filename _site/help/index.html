@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <!-- Canonical link to help search engines -->
+  <link rel="canonical" href="/help/"/>
+
+  <!-- Basic meta elements -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"/>
+
+  <!--   Dublin Core metadata for Zotero -->
+  <meta name="DC.title" content="Getting Help" />
+  <meta name="DC.creator" content="" />
+  <meta name="DC.contributor" content="" />
+  <meta name="DC.date" content="" />
+  <meta name="DC.rights" content="" />
+  <meta name="DC.source" content="MassTransit" />
+
+    <!-- Open Graph metadata -->
+
+    
+    <meta property="og:title" content="Getting Help"/>
+    <meta property="og:description" content="Stuff">
+    <meta property="fb:admins" content="elotroalex"/>
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="http://masstransit.io/help/"/>
+    <meta property="fb:app_id" content="589495744558280"/>
+    <meta property="og:image" content="http://masstransit.io/public/open-graph-logo.png"/>
+    <meta property="og:image:width" content="200" />
+    <meta property="og:image:height" content="200" />
+
+    
+
+  <title>
+    
+      Getting Help
+    
+  </title>
+
+  <!-- CSS links -->
+  <link rel="stylesheet" href="/public/css/syntax.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.5.5/css/tachyons.min.css"/>
+  <link rel="stylesheet" href="/public/css/mt.css"/>
+
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/public/apple-touch-icon-precomposed.png"/>
+  <link rel="shortcut icon" href="/public/favicon.png"/>
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml"/>
+</head>
+
+
+  <body class="sans-serif bg-white">
+
+    <div class="mw5 mw9-ns center pa3 ph5-ns">
+      <h1 class="f2 fw7 ttu tracked lh-title mt0 mb3 avenir">
+        <a href="/" title="Home">MassTransit</a>
+        <br>
+        <small>.Net Messaging</small>
+      </h1>
+    </div>
+    <div class="mw5 mw9-ns center pa3 ph5-ns">
+      <div class="page">
+  <h1 class="page-title">Getting Help</h1>
+  <p>Writing distributed applications is hard, and sometimes you need help. There are several ways to get in
+touch with the developers behind MassTransit. In most cases, you can expect a response within a few days,
+sometimes sooner. The speed of the response is going to depend upon how well you’ve done your homework
+before raising the white flag.</p>
+
+<p>However, before attempting to contact a developer directly, there are many active forums for support
+that are available.</p>
+
+<h2 id="stack-overflow">Stack Overflow</h2>
+
+<p>There is a MassTransit tag on <a href="http://stackoverflow.com/questions/tagged/masstransit">Stack Overflow</a> which has many questions that have already been asked. Several developers regularly monitor this tag for new questions, so that’s a great place to start. Be sure to search and see if your question has already been asked, that is the fastest way to an answer if someone else has already experienced the same issue.</p>
+
+<p>Before you just post your question, however, spend a few moments to compose your thoughts and formulate your question. There is nothing as pointless as simply telling us “MassTransit does not work for me” with no further information to give any clue to why. Before you post, search the web to see if your question has already been asked or even answered. And if it has been, you will already have your answer.</p>
+
+<h2 id="mailing-list">Mailing List</h2>
+
+<p>A long history of support is available on the mailing list, which is hosted on <a href="http://groups.google.com/group/masstransit-discuss/">Google Groups</a>. There are a wide variety of developers using MassTransit on the list, and often times they can help. If you are going to use MassTransit, joining the mailing list is a great way to participate in the community.</p>
+
+<p>When posting on the mailing list, pick a good subject line, and if the subject of the thread changes, please
+change the subject to match. Some of us deal with hundreds of emails per day and we need all the help we can
+get to pick the interesting or important ones.</p>
+
+<p>Also, if you are seeing some unexpected behavior, generate a <code class="highlighter-rouge">diagnostic result</code>_ and post it as a <a href="https://gist.github.com/">Gist</a> so that it can be reviewed (mail attachments rarely work, so avoid them). This will help a lot towards understanding how your configuration is setup.</p>
+
+<p>.. _diagnostics result: ../configuration/diagnostics.rst</p>
+
+<h2 id="twitter">Twitter</h2>
+
+<p>A fast way to get our attention is on Twitter, by shooting a tweet tagged <code class="highlighter-rouge">#mtproj</code>. Assuming you can fit your
+question in 140 characters or less. A few of us have saved searches on this tag, which makes questions easy to find
+(strangely, MassTransit is the worst term to search – go figure). There are several spread out across the US, so
+think about the time zone when you tweet. Again, post a link to a Gist_ with source, configuration, log files, etc.
+If it is complex, it’s likely you’ll be pushed to hit the mailing list.</p>
+
+<h2 id="github-issues">GitHub Issues</h2>
+
+<p>Please do not open an issue on github, unless you have spotted an actual bug in MassTransit. If you are unsure,
+ask on the mailing list, and if we confirm it’s a bug, we’ll ask you to <code class="highlighter-rouge">create the issue</code>_. Issues are not
+the place for questions, and they’ll likely be closed.</p>
+
+<p>.. _create the issue: https://github.com/masstransit/masstransit/issues</p>
+
+<p>This policy is in place to avoid bugs being drowned out in a pile of sensible suggestions for future enhancements
+and calls for help from people who forget to check back if they get it and so on.</p>
+
+</div>
+
+    </div>
+
+    <script>
+
+    // Highlight search Query
+    var url = window.location.href;
+      if (url.lastIndexOf("?q=") > 0) {
+        // get the index of the parameter, add three (to account for length)
+        var stringloc = url.lastIndexOf("?q=") + 3;
+        // get the substring (query) and decode
+        var searchquery = decodeURIComponent(url.substr(stringloc));
+        // regex matches at beginning of line, end of line or word boundary, useful for poetry
+        var regex = new RegExp("(?:^|\\b)(" + searchquery + ")(?:$|\\b)", "gim");
+        // get, add mark and then set content
+        var content = document.getElementById("main").innerHTML;
+        document.getElementById("main").innerHTML = content.replace(regex, "<mark>$1</mark>");
+      }
+
+    // Toggle sidebar
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+    <!-- Facebook SDK for JavaScript -->
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '589495744558280',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+  </body>
+</html>
