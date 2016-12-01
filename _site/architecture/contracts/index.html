@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+  <head>
+  <!-- Canonical link to help search engines -->
+  <link rel="canonical" href="/architecture/contracts/"/>
+
+  <!-- Basic meta elements -->
+  <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+  <meta http-equiv="content-type" content="text/html; charset=utf-8"/>
+
+  <!-- Enable responsiveness on mobile devices-->
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1"/>
+
+  <!--   Dublin Core metadata for Zotero -->
+  <meta name="DC.title" content="Message Contracts." />
+  <meta name="DC.creator" content="" />
+  <meta name="DC.contributor" content="" />
+  <meta name="DC.date" content="" />
+  <meta name="DC.rights" content="" />
+  <meta name="DC.source" content="MassTransit" />
+
+    <!-- Open Graph metadata -->
+
+    
+    <meta property="og:title" content="Message Contracts."/>
+    <meta property="og:description" content="An Ed edition">
+    <meta property="fb:admins" content="elotroalex"/>
+    <meta property="og:type" content="article" />
+    <meta property="og:url" content="http://masstransit.io/architecture/contracts/"/>
+    <meta property="fb:app_id" content="589495744558280"/>
+    <meta property="og:image" content="http://masstransit.io/public/open-graph-logo.png"/>
+    <meta property="og:image:width" content="200" />
+    <meta property="og:image:height" content="200" />
+    
+
+  <title>
+    
+      Message Contracts.
+    
+  </title>
+
+  <!-- CSS links -->
+  <link rel="stylesheet" href="/public/css/syntax.css"/>
+  <link rel="stylesheet" href="https://unpkg.com/tachyons@4.5.5/css/tachyons.min.css"/>
+  <link rel="stylesheet" href="/public/css/mt.css"/>
+
+
+  <!-- Icons -->
+  <link rel="apple-touch-icon-precomposed" sizes="180x180" href="/public/apple-touch-icon-precomposed.png"/>
+  <link rel="shortcut icon" href="/public/favicon.png"/>
+
+  <!-- RSS -->
+  <link rel="alternate" type="application/rss+xml" title="RSS" href="/atom.xml"/>
+</head>
+
+
+  <body class="sans-serif bg-white">
+
+    <div class="mw5 mw9-ns center pa3 ph5-ns">
+      <h1 class="f2 fw7 ttu tracked lh-title mt0 mb3 avenir">
+        <a href="/" title="Home">MassTransit</a>
+        <br>
+        <small>.Net Messaging</small>
+      </h1>
+    </div>
+    <div class="mw5 mw9-ns center pa3 ph5-ns">
+      <article>
+  <h1>Message Contracts.</h1>
+  <p>Good fences make good neighbors.</p>
+
+<ul id="markdown-toc">
+  <li><a href="#specifying-message-names" id="markdown-toc-specifying-message-names">Specifying message names</a>    <ul>
+      <li><a href="#commands" id="markdown-toc-commands">Commands</a></li>
+      <li><a href="#events" id="markdown-toc-events">Events</a></li>
+      <li><a href="#correlating-messages" id="markdown-toc-correlating-messages">Correlating messages</a>        <ul>
+          <li><a href="#correlationid" id="markdown-toc-correlationid">CorrelationId</a></li>
+          <li><a href="#requestid" id="markdown-toc-requestid">RequestId</a></li>
+          <li><a href="#conversationid" id="markdown-toc-conversationid">ConversationId</a></li>
+          <li><a href="#initiatorid" id="markdown-toc-initiatorid">InitiatorId</a></li>
+          <li><a href="#messageid" id="markdown-toc-messageid">MessageId</a></li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<p>In MassTransit, a message contract is defined using the .NET type system. Messages can be defined using both classes and interfaces, however, it is suggested that types use read-only properties and no behavior.</p>
+
+<blockquote>
+  <p>It is strongly suggested to use interfaces for message contracts, based on experience over several years with varying levels of developer experience. MassTransit will create dynamic interface implementations for the messages, ensuring a clean separation of the message contract from the consumer.</p>
+</blockquote>
+
+<p>An example message to update a customer address is shown below.</p>
+
+<div class="highlighter-rouge"><pre class="highlight"><code>namespace Company.Application.Contracts
+{
+        using System;
+
+        public interface UpdateCustomerAddress
+        {
+                Guid CommandId { get; }
+                DateTime Timestamp { get; }
+                string CustomerId { get; }
+                string HouseNumber { get; }
+                string Street { get; }
+                string City { get; }
+                string State { get; }
+                string PostalCode { get; }
+        }
+}
+</code></pre>
+</div>
+
+<p>A common mistake when engineers are new to messaging is to create a base class for messages, and try to dispatch that base class in the consumer – including the behavior of the subclass. Ouch. This always leads to pain and suffering, so just say no to base classes.</p>
+
+<h2 id="specifying-message-names">Specifying message names</h2>
+
+<p>There are two main message types, <em>events</em> and <em>commands</em>. When choosing a name for a
+message, the type of message should dictate the tense of the message.</p>
+
+<h3 id="commands">Commands</h3>
+
+<p>A command tells a service to do something. Commands are sent (using <code class="highlighter-rouge">Send</code>) to an endpoint,
+as it is expected that a single service instance performs the command action. A command should
+never be published.</p>
+
+<p>Commands should be expressed in a verb-noun sequence, following the <em>tell</em> style.</p>
+
+<p>Example Commands:</p>
+
+<ul>
+  <li>UpdateCustomerAddress</li>
+  <li>UpgradeCustomerAccount</li>
+  <li>SubmitOrder</li>
+</ul>
+
+<h3 id="events">Events</h3>
+
+<p>An event signifies that something has happened. Events are published (using <code class="highlighter-rouge">Publish</code>) using
+either <code class="highlighter-rouge">IBus</code> or the <code class="highlighter-rouge">ConsumeContext</code> within a message consumer. An event should never be
+sent directly to an endpoint.</p>
+
+<p>Events should be expressed in a noun-verb (past tense) sequence, indicating that something happened.</p>
+
+<p>Example Events:</p>
+
+<ul>
+  <li>CustomerAddressUpdated</li>
+  <li>CustomerAccountUpgraded</li>
+  <li>OrderSubmitted, OrderAccepted, OrderRejected, OrderShipped</li>
+</ul>
+
+<h3 id="correlating-messages">Correlating messages</h3>
+
+<p>There are several built-in message headers that can be used to correlate messages. However, it is also
+completely acceptable to add properties to the message contract for correlation. The default headers
+available include:</p>
+
+<h4 id="correlationid">CorrelationId</h4>
+<p>An explicit correlation identifier for the message. If the message contract has a property named
+  <code class="highlighter-rouge">CorrelationId</code>, <code class="highlighter-rouge">CommandId</code>, or <code class="highlighter-rouge">EventId</code> this header is automatically populated on Send
+  or Publish. Otherwise, it can be manually specified using the <code class="highlighter-rouge">SendContext</code>.</p>
+
+<h4 id="requestid">RequestId</h4>
+<p>When using the <code class="highlighter-rouge">RequestClient</code>, or the request/response message handling of MassTransit, each
+  request is assigned a unique <code class="highlighter-rouge">RequestId</code>. When the message is received by a consumer, the response
+  message sent by the <code class="highlighter-rouge">Respond</code> method (on the <code class="highlighter-rouge">ConsumeContext</code>) is assigned the same <code class="highlighter-rouge">RequestId</code>
+  so that it can be correlated by the request client. This header should not typically be set by the
+  consumer, as it is handled automatically.</p>
+
+<h4 id="conversationid">ConversationId</h4>
+<p>The conversation is created by the first message that is sent or published, in which no existing
+  context is available (such as when a message is sent or published from a message consumer). If an
+  existing context is used to send or publish a message, the <code class="highlighter-rouge">ConversationId</code> is copied to the
+  new message, ensuring that a set of messages within the same <em>conversation</em> have the same identifier.</p>
+
+<h4 id="initiatorid">InitiatorId</h4>
+<p>When a message is created within the context of an existing message, such as in a consumer, a saga, etc.,
+  the <code class="highlighter-rouge">CorrelationId</code> of the message (if available, otherwise the <code class="highlighter-rouge">MessageId</code> may be used) is copied
+  to the <code class="highlighter-rouge">InitiatorId</code> header. This makes it possible to combine a chain of messages into a graph of
+  producers and consumers.</p>
+
+<h4 id="messageid">MessageId</h4>
+<p>When a message is sent or published, this header is automatically generated for the message.</p>
+
+</div>
+
+    </div>
+
+    <script>
+
+    // Highlight search Query
+    var url = window.location.href;
+      if (url.lastIndexOf("?q=") > 0) {
+        // get the index of the parameter, add three (to account for length)
+        var stringloc = url.lastIndexOf("?q=") + 3;
+        // get the substring (query) and decode
+        var searchquery = decodeURIComponent(url.substr(stringloc));
+        // regex matches at beginning of line, end of line or word boundary, useful for poetry
+        var regex = new RegExp("(?:^|\\b)(" + searchquery + ")(?:$|\\b)", "gim");
+        // get, add mark and then set content
+        var content = document.getElementById("main").innerHTML;
+        document.getElementById("main").innerHTML = content.replace(regex, "<mark>$1</mark>");
+      }
+
+    // Toggle sidebar
+      (function(document) {
+        var toggle = document.querySelector('.sidebar-toggle');
+        var sidebar = document.querySelector('#sidebar');
+        var checkbox = document.querySelector('#sidebar-checkbox');
+
+        document.addEventListener('click', function(e) {
+          var target = e.target;
+
+          if(!checkbox.checked ||
+             sidebar.contains(target) ||
+             (target === checkbox || target === toggle)) return;
+
+          checkbox.checked = false;
+        }, false);
+      })(document);
+    </script>
+    <!-- Facebook SDK for JavaScript -->
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '589495744558280',
+      xfbml      : true,
+      version    : 'v2.6'
+    });
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "//connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+  </body>
+</html>
