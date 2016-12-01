@@ -1,76 +1,169 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset='utf-8'>
-    <meta http-equiv="X-UA-Compatible" content="chrome=1">
-    <link href='https://fonts.googleapis.com/css?family=Chivo:900' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" type="text/css" href="stylesheets/stylesheet.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/pygment_trac.css" media="screen" />
-    <link rel="stylesheet" type="text/css" href="stylesheets/print.css" media="print" />
-    <!--[if lt IE 9]>
-    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
-    <![endif]-->
-    <title>MassTransit</title>
-  </head>
+---
+layout: default
+title: "Green Pipes"
+subtitle: Composable middleware for the Task Parallel Library
+---
 
-  <body>
-    <div id="container">
-      <div class="inner">
+<div class="cf mb5">
+  <div class="fl w-20-ns">
+    <img src="http://docs.masstransit-project.com/en/latest/_images/mt-logo.png" style="margin-top:1rem;padding-top:1rem;"/>
+  </div>
+  <div class="fl w-40-ns">
+    <p class="f5 lh-copy measure">MassTransit is a free, open source, lightweight message bus for creating distributed applications using the .NET framework. MassTransit provides an extensive set of features on top existing message transports, resulting in a developer friendly way to asynchronously connect services using message-based conversation patterns. Message-based communication is a reliable and scalable way to implement a service oriented architecture.</p>
 
-        <header>
-          <h1>MassTransit</h1>
-          <h2>Lightweight Service Bus for .NET</h2>
-        </header>
+    <a href="https://groups.google.com/forum/#!forum/masstransit-discuss">
+      <img src="https://img.shields.io/badge/groups-join%20convo-lightgrey.svg" />
+    </a>
 
-        <section id="downloads" class="clearfix">
-          <a href="https://github.com/MassTransit/MassTransit" id="view-on-github" class="button"><span>View on GitHub</span></a>
-          <a href="https://ci.appveyor.com/project/phatboyg/masstransit" id="view-builds" class="button"><span>Builds in AppVeyor</span></a>
-          <a href="http://www.nuget.org/packages?q=masstransit" id="view-packages" class="button"><span>NuGet Packages</span></a>
-        </section>
+    <a href="https://gitter.im/MassTransit/MassTransit?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge">
+      <img src="https://badges.gitter.im/Join%20Chat.svg" />
+    </a>
+  </div>
+  <div class="fl w-40-ns">
+    <div class="cf">
+      <dl class="fl fn-l w-100 dib-l w-auto-l lh-title mr5-l">
+        <dd class="f6 fw4 ml0">MassTransit</dd>
+        <dd class="f3 fw6 ml0">
+          <a href="https://ci.appveyor.com/project/phatboyg/masstransit">
+            <img src="https://ci.appveyor.com/api/projects/status/github/masstransit/masstransit?svg=true" />
+          </a>
+          <br />
+          <a href="https://nuget.org/packages/masstransit">
+            <img src="https://img.shields.io/nuget/v/MassTransit.svg" />
+          </a>
+        </dd>
+      </dl>
+      <dl class="fl fn-l w-100 dib-l w-auto-l lh-title mr5-l">
+        <dd class="f6 fw4 ml0">Automatonymous</dd>
+        <dd class="f3 fw3 ml0">
+          <a href="https://ci.appveyor.com/project/phatboyg/automatonymous">
+            <img src="https://ci.appveyor.com/api/projects/status/github/masstransit/automatonymous?svg=true" />
+          </a>
+          <br/>
+          <a href="https://nuget.org/packages/Automatonymous">
+            <img src="https://img.shields.io/nuget/v/Automatonymous.svg" />
+          </a>
+        </dd>
+      </dl>
+      <dl class="fl fn-l w-100 dib-l w-auto-l lh-title mr5-l">
+        <dd class="f6 fw4 ml0">Green Pipes</dd>
+        <dd class="f3 fw6 ml0">
+          <a href="https://ci.appveyor.com/project/phatboyg/greenpipes">
+            <img src="https://ci.appveyor.com/api/projects/status/github/phatboyg/greenpipes?svg=true" />
+          </a>
+          <br />
+          <a href="https://nuget.org/packages/greenpipes">
+            <img src="https://img.shields.io/nuget/v/greenpipes.svg" />
+          </a>
+        </dd>
+      </dl>
+      <dl class="fl fn-l w-100 dib-l w-auto-l lh-title mr5-l">
+        <dd class="f6 fw4 ml0">Topshelf</dd>
+        <dd class="f3 fw6 ml0">
+          <a href="https://ci.appveyor.com/project/phatboyg/topshelf">
+            <img src="https://ci.appveyor.com/api/projects/status/github/topshelf/topshelf?svg=true" />
+          </a>
+          <br />
+          <a href="https://nuget.org/packages/topshelf">
+            <img src="https://img.shields.io/nuget/v/topshelf.svg" />
+          </a>
 
-        <hr>
+        </dd>
+      </dl>
+      <dl class="fl fn-l w-100 dib-l w-auto-l lh-title mr5-l">
+        <dd class="f6 fw4 ml0">NewId</dd>
+        <dd class="f3 fw6 ml0">
+          <a href="https://ci.appveyor.com/project/phatboyg/newid">
+            <img src="https://ci.appveyor.com/api/projects/status/github/phatboyg/newid?svg=true" />
+          </a>
+          <br />
+          <a href="https://nuget.org/packages/newid">
+            <img src="https://img.shields.io/nuget/v/newid.svg" />
+          </a>
 
-        <section id="main_content">
-
-          <h4>Business Friendly License</h4>
-          <p>
-            Under the Apache 2.0 license, MassTransit can be 
-            used in any environment.
-          </p>
-
-          <h4>Developer Friendly</h4>
-          <p>
-            Our DoodleWare free syntax ensures a hands-on-the-keyboard 
-            experience with easy refactoring support. Extensive 
-            visualizers for subscriptions, sagas, and pipelines.
-          </p>
-
-          <h4>Workflow Ready</h4>
-          <p>
-            Use a rich, fluent interface to build event driven sagas 
-            that are easy to deploy in a distributed system. Check out
-            <a href="https://github.com/MassTransit/Automatonymous">Automatonymous</a>
-            on GitHub for details.
-          </p>
-
-          <h4>Extensive Middleware Support</h4>
-          <p>
-            Easy integration with multiple messaging frameworks including
-            Azure Service Bus and <a href="https://www.rabbitmq.com/">RabbitMQ</a>.
-          </p>
-
-          <h4>Get Started Today!</h4>
-          <p>
-            Start checking out the 
-            <a href="http://masstransit.readthedocs.org/en/master/">documentation</a>
-            or asking questions on the 
-            <a href="http://groups.google.com/group/masstransit-discuss">mailing list</a>.
-        </section>
-
-        <footer>
-          This page was generated by <a href="http://pages.github.com">GitHub Pages</a>. Tactile theme by <a href="https://twitter.com/jasonlong">Jason Long</a>.
-        </footer>
-      </div>
+        </dd>
+      </dl>
     </div>
-  </body>
-</html>
+  </div>
+</div>
+
+<div class="cf">
+  <div class="fl w-50 w-25-ns pa3 pv2 bg-black-05">
+    <div class="toc">
+      <h3 class="fw9">I just want to ...</h2>
+      <ul class="list pl3">
+      {% for item in site.entrypoints do %}
+
+        <li class="post-title">
+          <a href="{{ site.baseurl }}{{ item.url }}" class="fw7">
+            {{ item.title }}
+          </a>
+
+            <div class="pl3 fw2">
+              {{item.excerpt}}
+            </div>
+        </li>
+      {% endfor %}
+      </ul>
+
+    </div>
+  </div>
+
+  <div class="fl w-50 w-25-ns pa3 pv2">
+    <div class="toc">
+      <h3 class="fw9">I am using ...</h2>
+      <ul class="list pl3">
+      {% for item in site.transports do %}
+        <li class="post-title">
+          <a href="{{ site.baseurl }}{{ item.url }}" class="fw7">
+            {{ item.title }}
+          </a>
+
+            <div class="pl3 fw2">
+              {{item.excerpt}}
+            </div>
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="fl w-50 w-25-ns pa3 pv2 bg-black-05">
+    <div class="toc">
+      <h3 class="fw9">How do I ...</h2>
+      <ul class="list pl3">
+      {% for item in site.usecases do %}
+        <li class="post-title">
+          <a href="{{ site.baseurl }}{{ item.url }}" class="fw7">
+            {{ item.title }}
+          </a>
+
+            <div class="pl3 fw2">
+              {{item.excerpt}}
+            </div>
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+  <div class="fl w-50 w-25-ns pa3 pv2">
+    <div class="toc">
+      <h3 class="fw9">What am I missing?</h2>
+      <ul class="list pl3">
+      {% for item in site.architecture do %}
+        <li>
+          <a href="{{ site.baseurl }}{{ item.url }}" class="fw7">
+            {{ item.title }}
+          </a>
+
+            <div class="pl3 fw2">
+              {{item.excerpt}}
+            </div>
+        </li>
+      {% endfor %}
+      </ul>
+    </div>
+  </div>
+
+</div>
