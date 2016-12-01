@@ -4,8 +4,6 @@ title: Message Contracts.
 subtitle: Leverage contracts to enable decoupled systems.
 ---
 
-Good fences make good neighbors.
-
 * ToC
 {:toc}
 
