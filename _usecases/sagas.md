@@ -84,9 +84,14 @@ For each state machine that is defined, it is expected that there will be at lea
 In Automatonymous, state is separate from behavior, allowing many instances to be managed using
 a single state machine.
 
-{% note %}
+<div class="w100 br3 hidden ba b--lightest-blue mv4">
+<div class="f4 black-60 bg-lightest-blue pv2 ph3 mv0 br3 br--top">Note</div>
+<div class="f5 lh-copy measure pa3">
+
 For some object-oriented purists, this may be causing the hair to raise on the back of your neck. Chill out, it's not the end of the world here. If you have a penchant for encapsulating behavior with data (practices such as domain model, DDD, etc.), recognize that programming language constructs are the only thing in your way here.
-{% endnote %}
+
+</div>
+</div>
 
 ### Tracking State
 
@@ -98,16 +103,26 @@ Behavior is defined using a class that inherits from `MassTransitStateMachine`. 
 and the state type associated with the behavior must be specified. This allows the state machine configuration
 to use the state for a better configuration experience.
 
-{% note %}
+<div class="w100 br3 hidden ba b--lightest-blue mv4">
+<div class="f4 black-60 bg-lightest-blue pv2 ph3 mv0 br3 br--top">Note</div>
+<div class="f5 lh-copy measure pa3">
+
 It also makes Intellisense work better.
-{% endnote %}
+
+</div>
+</div>
 
 States are defined in the state machine as properties. They are initialized by default, so there is no need
 to declare them explicitly unless they are somehow special, such as a Substate or Superstate.
 
-{% note %}
+<div class="w100 br3 hidden ba b--lightest-blue mv4">
+<div class="f4 black-60 bg-lightest-blue pv2 ph3 mv0 br3 br--top">Note</div>
+<div class="f5 lh-copy measure pa3">
+
 Configuration of a state machine is done using an internal DSL, using an approach known as Object Scoping, and is explained in Martin Fowler's Domain Specific Languages book.
-{% endnote %}
+
+</div>
+</div>
 
 ### Creating Instances
 
@@ -183,9 +198,14 @@ The following code will require installing a few NuGet dependencies.
 To define a state machine saga, create a class that inherits from `MassTransitStateMachine`. The `MassTransit.Automatonymous` NuGet package
 must be referenced.
 
-{% note %}
+<div class="w100 br3 hidden ba b--lightest-blue mv4">
+<div class="f4 black-60 bg-lightest-blue pv2 ph3 mv0 br3 br--top">Note</div>
+<div class="f5 lh-copy measure pa3">
+
 This section is written using the shopping cart sample, which is [hosted on GitHub](https://github.com/MassTransit/Sample-ShoppingWeb).
-{% endnote %}
+
+</div>
+</div>
 
 {% highlight C# %}
     public class ShoppingCartStateMachine :
@@ -381,9 +401,14 @@ CompositeEvent(() => OrderReady, x => x.OrderReadyStatus, PaymentApproved, Stock
 
 Once both events have been delivered to the state machine, the third event, *OrderReady*, will be triggered.
 
-{% note %}
+<div class="w100 br3 hidden ba b--lightest-blue mv4">
+<div class="f4 black-60 bg-lightest-blue pv2 ph3 mv0 br3 br--top">Note</div>
+<div class="f5 lh-copy measure pa3">
+
 The order of events being declared can impact the order in which they execute. Therefore, it is best to declare composite events at the end of the state machine declaration, after all other events and behaviors are declared. That way, the composite events will be raised *after* the dependent event behaviors.
-{% endnote %}
+
+</div>
+</div>
 
 ## Persisting Saga Instances
 
@@ -394,9 +419,15 @@ Sagas are stateful event-based message consumers -- they retain state. Therefore
 
 Saga instances are identified by a unique identifier (`Guid`), represented by the `CorrelationId` on the saga instance. Events are correlated to the saga instance using either the unique identifier, or alternatively using an expression that correlates properties on the saga instance to each event. If the `CorrelationId` is used, it's always a one-to-one match, either the saga already exists, or it's a new saga instance. With a correlation expression, the expression might match to more than one saga instance, so care should be used -- because the event would be delivered to all matching instances.
 
-{% danger %}
+<div class="w100 br3 hidden ba b--washed-red mv4">
+<div class="f4 black-60 bg-washed-red pv2 ph3 mv0 br3 br--top">Note</div>
+<div class="f5 lh-copy measure pa3">
+
+
 Seriously, don't sent an event to all instances -- unless you want to watch your messages consumers lock your entire saga storage engine.
-{% enddanger %}
+
+</div>
+</div>
 
 ### Storage Engines
 

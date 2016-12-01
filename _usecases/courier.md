@@ -79,9 +79,14 @@ When the *Execute* method is called, an *execution* argument is passed containin
 Once activity processing is complete, the activity returns an *ExecutionResult* to the host. If the activity executes successfully, the activity can elect to store compensation data in an activity log which is passed to the *Completed* method on the *execution* argument. If the activity chooses not to store any compensation data, the activity log argument is not required. In addition to compensation data, the activity can add or modify variables stored in the routing slip for use by subsequent activities.
 
 
-{% note %}
+<div class="w100 br3 hidden ba b--lightest-blue mv4">
+<div class="f4 black-60 bg-lightest-blue pv2 ph3 mv0 br3 br--top">Note</div>
+<div class="f5 lh-copy measure pa3">
+
 In the example above, the activity creates an instance of a private class that implements the *DownloadImageLog* interface and stores the log information in the object properties. The object is then passed to the *Completed* method for storage in the routing slip before sending the routing slip to the next activity.
-{% endnote %}
+
+</div>
+</div>
 
 ### Compensating an activity
 
@@ -117,9 +122,13 @@ var routingSlip = builder.Build();
 
 Each activity requires a name for display purposes and a URI specifying the execution address. The execution address is where the routing slip should be sent to execute the activity. For each activity, arguments can be specified that are stored and presented to the activity via the activity arguments interface type specify by the first argument of the *Activity* interface. The activities added to the routing slip are combined into an *Itinerary*, which is the list of activities to be executed, and stored in the routing slip.
 
-{% note %}
+<div class="w100 br3 hidden ba b--lightest-blue mv4">
+<div class="f4 black-60 bg-lightest-blue pv2 ph3 mv0 br3 br--top">Note</div>
+<div class="f5 lh-copy measure pa3">
+
 Managing the inventory of available activities, as well as their names and execution addresses, is the responsibility of the application and is not part of the MassTransit Courier. Since activities are application specific, and the business logic to determine which activities to execute and in what order is part of the application domain, the details are left to the application developer.
-{% endnote %}
+</div>
+</div>
 
 ## Executing the routing slip
 
@@ -172,9 +181,14 @@ builder.AddSubscription(new Uri("rabbitmq://localhost/log-events"), RoutingSlipE
 
 This would send the `RoutingSlipCompleted` event to the endpoint, without any of the variables be included (only the main properties of the event would be present).
 
-{% note %}
+<div class="w100 br3 hidden ba b--lightest-blue mv4">
+<div class="f4 black-60 bg-lightest-blue pv2 ph3 mv0 br3 br--top">Note</div>
+<div class="f5 lh-copy measure pa3">
+
 Once a subscription is added to a routing slip, events are no longer published -- they are only sent to the addresses specified in the subscriptions. However, multiple subscriptions can be specified -- the endpoints just need to be known at the time the routing slip is built.
-{% endnote %}
+
+</div>
+</div>
 
 ### Custom events
 
