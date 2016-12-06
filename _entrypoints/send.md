@@ -1,13 +1,13 @@
 ---
 layout: default
-title: send a message!
-subtitle: Simply send a message
+title: Sending Messages
+subtitle: So you want to send a message...
 ---
+
+While the concept of _send_ is widely understood, MassTransit stereotypes send as a very specific approach for producing messages. With send, a message is delivery to a specific endpoint using an explicit destination address, an address of which the producer has apriori knowledge.
 
 * ToC
 {:toc}
-
-While the concept of _send_ is widely understood, MassTransit stereotypes send as a very specific approach for producing messages. With send, a message is delivery to a specific endpoint using an explicit destination address, an address of which the producer has apriori knowledge.
 
 ## Sending a message
 
