@@ -529,7 +529,7 @@ Each saga instance will be placed in a collection specific to the instance type.
 
 #### NHibernate
 
-While the project seems dead, NHibernate is still widely used and is supported by MassTransit for saga storage. The example below shows the code-first approach to using NHibernate for saga persistence.
+Although NHibernate is not being actively developed recently, it is still widely used and is supported by MassTransit for saga storage. The example below shows the code-first approach to using NHibernate for saga persistence.
 
 {% highlight C# %}
 public class SagaInstance :
@@ -566,4 +566,48 @@ The `SagaClassMapping` base class maps the `CorrelationId` of the saga, and hand
 {% highlight C# %}
 ISessionFactory sessionFactory = CreateSessionFactory();
 var repository = new NHibernateSagaRepository<SagaInstance>(sessionFactory);
+{% endhighlight %}
+
+#### Redis
+
+Redis is a very popular key-value store, which is known for being very fast.
+
+Redis does not support queries, therefore Redis saga persistence only supports correlation by id. If you try to use correlation by expressions, you will get a "not implemented" exception.
+
+Saga persistence for Redis uses ``ServiceStack.Redis`` library and it support both BSD-licensed v3.9.71 and the latest commercial versions as well.
+
+Saga instance class must implement ``IHasGuid`` interface and the ``Id`` property, that must return the value of the ``CorrelationId`` property:
+
+{% highlight C# %}
+    public class SagaInstance : SagaStateMachineInstance, IHasGuidId
+    {
+        public Guid CorrelationId { get; set; }
+        public Guid Id => CorrelationId;
+        public string CurrentState { get; set; }
+
+        public string CustomData { get; set; }
+    }
+{% endhighlight %}
+ 
+ Redis saga persistence does not aquire locking on the database record when writing it so potentially you can have write conflict in case the saga is updating its state frequently (hundreds of times per second). To resolve this, the saga instance can implement the ``IVersionedSaga`` inteface and include the Version property:
+
+{% highlight C# %}
+    public int Version { get; set; }
+{% endhighlight %}
+
+When version of the instance that is being updated will be lower than the expected version, the saga repository will trow an exception and force the message to be retried, potentially resolving the issue.
+
+The Redis saga repository requires ``ServiceStack.Redis.IRedisClientsManager`` as constructor parameter. For containerless initialization the code would look like:
+
+{% highlight C# %}
+    var redisConnectionString = "redis://localhost:6379";
+    var repository = new RedisSagaRepository<SagaInstance>(new RedisManagerPool(redisConnectionString));
+{% endhighlight %}
+
+If you use a container, you can use the code like this (example for Autofac):
+
+{% highlight C# %}
+    var redisConnectionString = "redis://localhost:6379";
+    builder.Register<IRedisClientsManager>(c => new RedisManagerPool(redisConnectionString)).SingleInstance();
+    builder.RegisterGeneric(typeof(RedisSagaRepository<>)).As(typeof(ISagaRepository<>)).SingleInstance();
 {% endhighlight %}
