@@ -96,7 +96,7 @@ subtitle: Composable middleware for the Task Parallel Library
     <div class="toc">
       <h3 class="fw9">I just want to ...</h2>
       <ul class="list pl3">
-      {% for item in site.entrypoints do %}
+      {% for item in site.data.entrypoints do %}
 
         <li class="post-title">
           <a href="{{ site.baseurl }}{{ item.url }}" class="fw7">
@@ -117,12 +117,11 @@ subtitle: Composable middleware for the Task Parallel Library
     <div class="toc">
       <h3 class="fw9">I am using ...</h2>
       <ul class="list pl3">
-      {% for item in site.transports do %}
+      {% for item in site.data.transports do %}
         <li class="post-title">
           <a href="{{ site.baseurl }}{{ item.url }}" class="fw7">
             {{ item.title }}
           </a>
-
             <div class="pl3 fw2">
               <p>{{item.subtitle}}</p>
             </div>
@@ -136,12 +135,11 @@ subtitle: Composable middleware for the Task Parallel Library
     <div class="toc">
       <h3 class="fw9">How do I ...</h2>
       <ul class="list pl3">
-      {% for item in site.usecases do %}
+      {% for item in site.data.howdoi do %}
         <li class="post-title">
           <a href="{{ site.baseurl }}{{ item.url }}" class="fw7">
             {{ item.title }}
           </a>
-
             <div class="pl3 fw2">
               <p>{{item.subtitle}}</p>
             </div>
@@ -155,7 +153,7 @@ subtitle: Composable middleware for the Task Parallel Library
     <div class="toc">
       <h3 class="fw9">What am I missing?</h2>
       <ul class="list pl3">
-      {% for item in site.architecture do %}
+      {% for item in site.data.architecture do %}
         <li>
           <a href="{{ site.baseurl }}{{ item.url }}" class="fw7">
             {{ item.title }}
@@ -172,10 +170,8 @@ subtitle: Composable middleware for the Task Parallel Library
 
 </div>
 
-
 <div class="cf">
-  <a href="/history/">History</a>
-  <a href="/installing/">Installing</a>
-  <a href="/terminology/">Terminology</a>
-  <a href="/help/">Help</a>
+  <a href="MassTransit/#a-bit-of-the-backstory">History</a>
+  <a href="MassTransit/introduction/">Installing</a>
+  <a href="MassTransit/introduction/getting-help.html">Help</a>
 </div>

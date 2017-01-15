@@ -1,0 +1,6 @@
+- title: RabbitMQ
+  url: MassTransit/usage/transports.html#rabbitmq-configuration-options
+  subtitle: The Default
+- title: Azure Service Bus
+  url: MassTransit/usage/transports.html#azure-service-bus-configuration-options
+  subtitle: Running on Azure?
