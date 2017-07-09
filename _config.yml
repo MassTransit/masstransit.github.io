@@ -2,9 +2,9 @@
 
 # Setup
 title:               MassTransit
-tagline:             '.Net Messaging'
-description:         'Stuff'
-url:                 'http://masstransit.io'
+tagline:             '.NET Messaging'
+description:         'MassTransit is a free, open source, lightweight message bus for creating distributed applications using the .NET framework.'
+url:                 'http://masstransit-project.com'
 baseurl:             ''
 
 # About/contact
