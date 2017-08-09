@@ -7,3 +7,6 @@
 - title: Execute distributed transaction?
   url: MassTransit/advanced/courier/
   subtitle: How to connect many services into one flow using a Courier (routing slip).
+- title: Get diagnostics
+  url: MassTransit/troubleshooting/show-config.html
+  subtitle: Find out your configuration.

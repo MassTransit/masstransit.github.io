@@ -1,3 +1,6 @@
+- title: Get started
+  url: MassTransit/quickstart.html 
+  subtitle: Some basic code to get you started.
 - title: Consume a message
   url: MassTransit/usage/message-consumers.html
   subtitle: How to simply consume a message.
@@ -7,9 +10,3 @@
 - title: Learn more
   url: MassTransit/usage/
   subtitle: Get to know MassTransit better.
-- title: Get diagnostics
-  url: MassTransit/troubleshooting/show-config.html
-  subtitle: Find out your configuration.
-- title: Understand all these
-  url: MassTransit/understand/
-  subtitle: Many options are available.
