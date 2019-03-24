@@ -4,7 +4,7 @@
 - title: Middleware
   subtitle: Composable middleware for the Task Parallel Library.
   url: MassTransit/advanced/middleware/
-- title: Philisophy
+- title: Philosophy
   subtitle: The way we think.
   url: MassTransit/#the-philosophy
 - title: Understand it better
