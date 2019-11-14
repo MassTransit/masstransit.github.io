@@ -1,12 +1,9 @@
 - title: Message contracts
   subtitle: Leverage contracts to enable decoupled systems.
-  url: MassTransit/usage/message-contracts.html
+  url: MassTransit/usage/messages.html
 - title: Middleware
   subtitle: Composable middleware for the Task Parallel Library.
   url: MassTransit/advanced/middleware/
-- title: Philosophy
-  subtitle: The way we think.
-  url: MassTransit/#the-philosophy
-- title: Understand it better
-  url: MassTransit/understand/
-  subtitle: Many options are available.
+- title: History
+  subtitle: The story of MassTransit
+  url: MassTransit/architecture/history.html

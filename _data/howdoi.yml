@@ -1,12 +1,12 @@
 - title: Schedule a message for later?
-  url: MassTransit/usage/scheduling/
+  url: MassTransit/advanced/scheduling/
   subtitle: How to schedule a message for future delivery.
 - title: Handle a process?
-  url: MassTransit/advanced/sagas/
+  url: MassTransit/usage/sagas/
   subtitle: How to build long running processes using a Saga (process manager).
 - title: Execute distributed transaction?
   url: MassTransit/advanced/courier/
   subtitle: How to connect many services into one flow using a Courier (routing slip).
-- title: Get diagnostics
-  url: MassTransit/troubleshooting/show-config.html
-  subtitle: Find out your configuration.
+- title: Configure my container
+  url: MassTransit/usage/containers/
+  subtitle: Setup your DI

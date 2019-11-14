@@ -1,6 +1,12 @@
 - title: RabbitMQ
-  url: MassTransit/usage/transports.html#rabbitmq-configuration-options
-  subtitle: The Default
+  url: MassTransit/usage/transports/rabbitmq.html
+  subtitle: Fast and reliable
 - title: Azure Service Bus
-  url: MassTransit/usage/transports.html#azure-service-bus-configuration-options
-  subtitle: Running on Azure?
+  url: MassTransit/usage/transports/azure-sb.html
+  subtitle: Cloud-based message broker
+- title: ActiveMQ
+  url: MassTransit/usage/transports/activemq.html
+  subtitle: Java-based message broker
+- title: Amazon SQS
+  url: MassTransit/usage/transports/amazonsqs.html
+  subtitle: Cloud-based messaging
